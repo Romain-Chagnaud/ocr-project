@@ -9,7 +9,7 @@ def bytes_to_int(byte_data):
 def read_images(filename, n_max_images=None):
     images = []
     with open(filename, 'rb') as f:
-        _ = f.read(4)  # magic number
+        _ = f.read(4)
         n_images = bytes_to_int(f.read(4))
         if n_max_images:
             n_images = n_max_images
@@ -30,7 +30,7 @@ def read_images(filename, n_max_images=None):
 def read_labels(filename, n_max_labels=None):
     labels = []
     with open(filename, 'rb') as f:
-        _ = f.read(4)  # magic number
+        _ = f.read(4)
         n_labels = bytes_to_int(f.read(4))
         if n_max_labels:
             n_labels = n_max_labels
