@@ -13,11 +13,11 @@ def read_images(n_max_images):
     nb_range = 1
     for i in range(0,n_max_images):
         # redimensionnement de l'image
-        im = Image.open(f'data/baseProjetOCR/{nb}_{nb_range}.png')
+        im = Image.open(f'baseProjetOCR/{nb}_{nb_range}.png')
         res = im.resize((200, 200))
-        res.save(f'data/baseProjetOCR/test/{nb}_{nb_range}.png')
+        res.save(f'baseProjetOCR/test/{nb}_{nb_range}.png')
         # ajout de l'image
-        images.extend([read_image(f'data/baseProjetOCR/test/{nb}_{nb_range}.png')])
+        images.extend([read_image(f'baseProjetOCR/test/{nb}_{nb_range}.png')])
         im.close
         res.close
         nb_range += 1
@@ -80,8 +80,9 @@ def knn(X_test, y_test, k):
     print()
     return y_pred
 
+
 def delete_test_folder():
-    folder = 'data/baseProjetOCR/test/'
+    folder = 'baseProjetOCR/test/'
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
@@ -91,8 +92,9 @@ def delete_test_folder():
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Echec de la suppression %s : %s' % (file_path, e))
-    os.rmdir(f'data/baseProjetOCR/test/')
+    os.rmdir(f'baseProjetOCR/test/')
     pass
+
 
 def main():
     # options du test
@@ -102,9 +104,9 @@ def main():
     print(f'k: {k}')
 
     # création du dossier de test
-    if os.path.exists(f'data/baseProjetOCR/test/'):
+    if os.path.exists(f'baseProjetOCR/test/'):
         delete_test_folder()
-    os.mkdir(f'data/baseProjetOCR/test/')
+    os.mkdir(f'baseProjetOCR/test/')
 
     # on prépare les images
     X_test = read_images(n_test)
