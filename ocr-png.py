@@ -1,20 +1,30 @@
 from PIL import Image
 import numpy
 
+
 def read_image(path):
     return numpy.asarray(Image.open(path).convert('L'))
+
 
 def read_images(n_max_images):
     images = []
     nb = 0
     nb_range = 1
     for i in range(0,n_max_images):
-        images.extend([read_image(f'data/baseProjetOCR/{nb}_{nb_range}.png')])
+        # redimensionnement
+        im = Image.open(f'data/baseProjetOCR/{nb}_{nb_range}.png')
+        res = im.resize((200, 200))
+        res.save(f'data/baseProjetOCR/test/{nb}_{nb_range}.png')
+        # ajout de l'image
+        images.extend([read_image(f'data/baseProjetOCR/test/{nb}_{nb_range}.png')])
+        im.close
+        res.close
         nb_range += 1
         if nb_range > 10:
             nb_range = 1
             nb += 1
     return images
+
 
 def bytes_to_int(byte_data):
     return int.from_bytes(byte_data, 'big')
