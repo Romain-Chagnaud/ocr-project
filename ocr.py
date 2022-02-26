@@ -2,6 +2,7 @@ from PIL import Image
 import numpy
 import os, shutil
 
+BD_TEST = 'baseProjetOCR/test/'
 
 def read_image(path):
     return numpy.asarray(Image.open(path).convert('L'))
@@ -15,9 +16,9 @@ def read_images(n_max_images):
         # redimensionnement de l'image
         im = Image.open(f'baseProjetOCR/{nb}_{nb_range}.png')
         res = im.resize((200, 200))
-        res.save(f'baseProjetOCR/test/{nb}_{nb_range}.png')
+        res.save(f'{BD_TEST}{nb}_{nb_range}.png')
         # ajout de l'image
-        images.extend([read_image(f'baseProjetOCR/test/{nb}_{nb_range}.png')])
+        images.extend([read_image(f'{BD_TEST}{nb}_{nb_range}.png')])
         im.close
         res.close
         nb_range += 1
@@ -82,7 +83,7 @@ def knn(X_test, y_test, k):
 
 
 def delete_test_folder():
-    folder = 'baseProjetOCR/test/'
+    folder = f'{BD_TEST}'
     for filename in os.listdir(folder):
         file_path = os.path.join(folder, filename)
         try:
@@ -92,7 +93,7 @@ def delete_test_folder():
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Echec de la suppression %s : %s' % (file_path, e))
-    os.rmdir(f'baseProjetOCR/test/')
+    os.rmdir(f'{BD_TEST}')
     pass
 
 
@@ -104,9 +105,9 @@ def main():
     print(f'k: {k}')
 
     # création du dossier de test
-    if os.path.exists(f'baseProjetOCR/test/'):
+    if os.path.exists(f'{BD_TEST}'):
         delete_test_folder()
-    os.mkdir(f'baseProjetOCR/test/')
+    os.mkdir(f'{BD_TEST}')
 
     # on prépare les images
     X_test = read_images(n_test)
