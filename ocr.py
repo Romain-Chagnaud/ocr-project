@@ -2,7 +2,9 @@ from PIL import Image
 import numpy
 import os, shutil
 
+
 BD_TEST = 'baseProjetOCR/test/'
+
 
 def read_image(path):
     return numpy.asarray(Image.open(path).convert('L'))
@@ -13,14 +15,12 @@ def read_images(n_max_images):
     nb = 0
     nb_range = 1
     for i in range(0,n_max_images):
-        # redimensionnement de l'image
         im = Image.open(f'baseProjetOCR/{nb}_{nb_range}.png')
-        res = im.resize((200, 200))
-        res.save(f'{BD_TEST}{nb}_{nb_range}.png')
-        # ajout de l'image
+        im = im.resize((200, 200)) # redimensionnement de l'image
+        # im = im.convert('1') # converstion de l'image en noir et blanc
+        im.save(f'{BD_TEST}{nb}_{nb_range}.png')
         images.extend([read_image(f'{BD_TEST}{nb}_{nb_range}.png')])
         im.close
-        res.close
         nb_range += 1
         if nb_range > 10:
             nb_range = 1
