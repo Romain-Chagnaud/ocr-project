@@ -16,8 +16,13 @@ def read_images(n_max_images):
     nb_range = 1
     for i in range(0,n_max_images):
         im = Image.open(f'baseProjetOCR/{nb}_{nb_range}.png')
-        im = im.resize((200, 200)) # redimensionnement de l'image
-        # im = im.convert('1') # converstion de l'image en noir et blanc
+
+        # redimensionnement de l'image
+        im = im.resize((200, 200))
+
+        # converstion de l'image en noir et blanc
+        #im = im.convert('1')
+        
         im.save(f'{BD_TEST}{nb}_{nb_range}.png')
         images.extend([read_image(f'{BD_TEST}{nb}_{nb_range}.png')])
         im.close
@@ -101,9 +106,8 @@ def main():
     # options du test
     n_test = 100
     k = 7
-    print(f'n_test : {n_test}')
-    print(f'k : {k}')
-    print(f"Veuillez patienter {n_test} tours :")
+    print(f'n_test: {n_test}')
+    print(f'k: {k}')
 
     # création du dossier de test
     if os.path.exists(f'{BD_TEST}'):
@@ -135,19 +139,8 @@ def main():
     ]) / len(y_test)
 
     # on affiche le résultat
-    print(f'\nRésultats du test OCR :')
-    print(f'0| {y_pred[0:9:1]}')
-    print(f'1| {y_pred[10:19:1]}')
-    print(f'2| {y_pred[20:29:1]}')
-    print(f'3| {y_pred[30:39:1]}')
-    print(f'4| {y_pred[40:49:1]}')
-    print(f'5| {y_pred[50:59:1]}')
-    print(f'6| {y_pred[60:69:1]}')
-    print(f'7| {y_pred[70:79:1]}')
-    print(f'8| {y_pred[80:89:1]}')
-    print(f'9| {y_pred[90:99:1]}')
-
-    print(f'Le taux de reconnaissance est de {accuracy * 100}%')
+    print(f'Predicted labels: {y_pred}')
+    print(f'Accuracy: {accuracy * 100}%')
 
     # suppression du dossier de test
     delete_test_folder()
